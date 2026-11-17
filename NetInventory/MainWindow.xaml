@@ -1,0 +1,49 @@
+﻿<Window x:Class="NetInventory.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NetInventory"
+        mc:Ignorable="d"
+        Title="Инвентаризация сети" Height="600" Width="1100">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <!-- 0: Текст-подсказка -->
+            <RowDefinition Height="Auto"/>
+            <!-- 1: Поле ввода -->
+            <RowDefinition Height="Auto"/>
+            <!-- 2: Кнопки -->
+            <RowDefinition Height="Auto"/>
+            <!-- 3: Прогресс-бар -->
+            <RowDefinition Height="*"/>
+            <!-- 4: Таблица (занимает всё оставшееся место) -->
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Список ПК (каждый с новой строки):" Grid.Row="0" Margin="0,0,0,5"/>
+
+        <TextBox x:Name="txtComputers" Grid.Row="1" Height="100" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="0,0,0,10"/>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,0,0,10">
+            <Button x:Name="btnScan" Content="Сканировать" Width="150" Height="30" Margin="0,0,10,0" Click="BtnScan_Click"/>
+            <Button x:Name="btnGetDomainPCs" Content="Загрузить ПК из домена" Width="200" Height="30" Click="BtnGetDomainPCs_Click"/>
+        </StackPanel>
+
+        <!-- Прогресс-бар теперь на 3-й строке -->
+        <ProgressBar x:Name="progressBar" Grid.Row="3" Height="20" Margin="0,0,0,10" Visibility="Collapsed"/>
+
+        <!-- Таблица теперь на 4-й строке (и она существует!) -->
+        <DataGrid x:Name="dataGridResults" Grid.Row="4" AutoGenerateColumns="False" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ПК" Binding="{Binding ComputerName}" Width="120"/>
+                <DataGridTextColumn Header="IP" Binding="{Binding IPAddress}" Width="100"/>
+                <DataGridTextColumn Header="Пользователь" Binding="{Binding UserName}" Width="150"/>
+                <DataGridTextColumn Header="ОС" Binding="{Binding OS}" Width="150"/>
+                <DataGridTextColumn Header="Процессор" Binding="{Binding CPU}" Width="200"/>
+                <DataGridTextColumn Header="ОЗУ" Binding="{Binding RAM_GB}" Width="60"/>
+                <DataGridTextColumn Header="Диски" Binding="{Binding Disks}" Width="200"/>
+                <DataGridTextColumn Header="Модель" Binding="{Binding Model}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
